@@ -1,4 +1,4 @@
-REMgh auth login
+//gh auth login
 git remote add origin https://github.com/kot-omka/kotomka.git
 git remote -v
 git add .
