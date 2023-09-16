@@ -1,4 +1,5 @@
 //gh auth login
+git config user.name "kot.omka@mail.ru"
 git remote add origin https://github.com/kot-omka/kotomka.git
 git remote -v
 git add .
