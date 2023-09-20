@@ -7,7 +7,21 @@ var express = require("express"),
         require("passport-local-mongoose")
 const User = require("./model/User");
 var app = express();
-  
+
+const Schema = mongoose.Schema;
+
+// установка схемы
+const testScheme = new mongoose.Schema({
+    name: {
+        type: String,
+        default: "NoName"
+    },
+    age: {
+        type: Number,
+        default: 22
+    }
+}, {collection: 'Tests' } );
+const modelTest = mongoose.model("Tests", testScheme );
 mongoose.connect("mongodb://localhost/27017");
   
 app.set("view engine", "ejs");
@@ -62,7 +76,7 @@ app.get("/login", function (req, res) {
     res.render("login", { name: 'login_error' });
 });
 app.get("/ajax", function (req, res) {
-    res.render("ajax", json({ name1: 'login_error' }));
+    res.render("ajax", { name1: 'login_error' } );
 });  
 //Handling user login
 app.post("/login", async function(req, res){
@@ -104,6 +118,16 @@ app.post("/ajax", async function(req, res){
           //check if password matches
           const result = req.body.password === user.password;
           if (result) {
+            const test1 = new modelTest(); // name - NoName, age - 22
+            const test2 = new modelTest({name: "Tom"}); // name - Tom, age - 22
+            const test3 = new modelTest( {age:34} ); // name - NoName, age - 34
+            console.log(test3);
+            await test1.save();
+            test2.save();
+            test3.save();
+            console.log(test1);
+            console.log(test2);
+            console.log(test3);
             res.render("secret");
           } else {
             //res.status(400).json({ error: "password doesn't match" });
