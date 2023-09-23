@@ -6,6 +6,12 @@ var express = require("express"),
     passportLocalMongoose = 
         require("passport-local-mongoose")
 const User = require("./model/User");
+var users=[ {   userName: "faizan",  password: "faizan",  email: "mfkj@live.com"},
+            {   userName: "ali",     password: "ali",     email: "xyz@live.com"},
+            {   userName: "hussain", password: "hussain", email: "abc@live.com"},
+            {   userName: "hassan",  password: "hassan",  email: "xyz@mail.com"},
+];
+
 var app = express();
 
 const Schema = mongoose.Schema;
@@ -75,9 +81,15 @@ app.post("/register", async (req, res) => {
 app.get("/login", function (req, res) {
     res.render("login", { name: 'login_error' });
 });
-app.get("/ajax", function (req, res) {
-    res.render("ajax", { name1: 'login_error' } );
-});  
+
+app.get('/ajax', function(request, response) {
+  users.push({
+    userName: request.query["userName"],
+    password: request.query["password"],
+    email: request.query["email"]
+  });
+  response.render('ajax', { users: users });
+});
 //Handling user login
 app.post("/login", async function(req, res){
     try {
@@ -118,9 +130,9 @@ app.post("/ajax", async function(req, res){
           //check if password matches
           const result = req.body.password === user.password;
           if (result) {
-            const test1 = new modelTest(); // name - NoName, age - 22
+            const test1 = new modelTest(); // name - NoName, age - 33333
             const test2 = new modelTest({name: "Tom"}); // name - Tom, age - 22
-            const test3 = new modelTest( {age:34} ); // name - NoName, age - 34
+            const test3 = new modelTest( {age:3333} ); // name - NoName, age - 34
             console.log(test3);
             await test1.save();
             test2.save();

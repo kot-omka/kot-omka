@@ -9,5 +9,10 @@
         placeholder="password">
     <button>login</button>
 </form>
-<h1><%= name1 %></h1>
 <h1>This is ajax page</h1>
+<h1>Users</h1>
+<ul>
+<% users.forEach(function(user) { %>
+  <li><%= user.userName %></li>
+<% }); %>
+</ul>
